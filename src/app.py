@@ -71,8 +71,11 @@ def add_member():
     return jsonify({'error':'error al añadir un miembro'}),400
 
 @app.route('/members/<int:id>', methods=['DELETE'])
-def del_member():
-    jackson_family.delete_member(id)
+def del_member(id):
+    member=jackson_family.get_member(id)
+    if member:
+        jackson_family.delete_member(id)
+        return jsonify({'msg':'Eliminado miembro de la familia'}),201
     return jsonify({'error':'error al eliminar un miembro'}),400
 
 # this only runs if `$ python src/app.py` is executed
